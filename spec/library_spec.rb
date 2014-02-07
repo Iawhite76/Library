@@ -94,15 +94,15 @@ describe Library do
     expect(book.status).to eq 'checked_out'
   end
 
-  xit "knows who borrowed a book" do
-    lib = Library.new
+  it "knows who borrowed a book" do
+    lib = Library.new("FAC")
     lib.register_new_book("The Brothers Karamazov", "Fyodor Dostoesvky")
     book_id = lib.books.first.id
-
+   
     # Big Brother wants to check out The Brothers Karamazov
     bro = Borrower.new('Big Brother')
     book = lib.check_out_book(book_id, bro)
-
+    #binding.pry
     # The Library should know that he checked out the book
     expect( lib.get_borrower(book_id) ).to eq 'Big Brother'
   end
