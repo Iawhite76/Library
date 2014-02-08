@@ -2,7 +2,7 @@
 class Book
   attr_accessor :title, :author, :id, :status, :borrower
 
-  def initialize(title, author)
+  def initialize(title="some_title", author="some_author")
     @author = author
     @title = title
     @id = nil
@@ -50,17 +50,17 @@ class Library
   # end
 
   def check_out_book(book_id, borrower)
-    # book = ""
     @books.each do |x|
-      if x.id == book_id
+      if (x.id == book_id) && (x.status == "available")
         x.check_out
         x.borrower = borrower
         return x
       else
-        puts "Book not available"
+        # puts "Book not available"
+        return nil
       end
     end
-    # book
+
   end
 
   def get_borrower(book_id)
