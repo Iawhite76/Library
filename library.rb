@@ -30,7 +30,6 @@ class Borrower
   def initialize(name)
     @name = name
     @borrowed_count = 0
-    @borrowed_books = []
   end
 
 end
@@ -40,7 +39,6 @@ class Library
   def initialize(name="FAC")
     @books = []
     @id_counter = 100
-    # @library = {}
   end
 
   def register_new_book(title, author)
@@ -93,13 +91,23 @@ class Library
   end
 
   def available_books
-    @books.each do |book|
-      if book.status == "available"
-         puts "#{book.title}"
-      end
+    @books.select do |book|
+      book.status == "available"
     end
+    # @books.delete_if do |book|
+    #   book.status != "available"
+    # end
   end
 
   def borrowed_books
+    @books.select do |book|
+      book.status != "available"
+    end
+
+    # @books.each do |book|
+    #  if book.status != "available"
+    #   return @borrowed_books += 1
+    # end
+  # end
   end
 end

@@ -179,13 +179,13 @@ describe Library do
 
     jordan = Borrower.new("Michael jordan")
     book = lib.check_out_book(lib.available_books.first.id, jordan)
-
+    # binding.pry
     # But now, there should only be two available books
     expect(lib.available_books.count).to eq(2)
-
+# binding.pry
   end
-# binding pry
-  xit "returns borrowed books" do
+
+  it "returns borrowed books" do
     lib = Library.new
     lib.register_new_book("Eloquent JavaScript", "Marijn Haverbeke")
     lib.register_new_book("Essential JavaScript Design Patterns", "Addy Osmani")
@@ -195,10 +195,12 @@ describe Library do
     expect(lib.borrowed_books.count).to eq(0)
 
     kors = Borrower.new("Michael Kors")
-    book = lib.check_out_book(lib.borrowed_books.first.id, kors)
+    # binding.pry
+    book = lib.check_out_book(lib.books.first.id, kors)
+
 
     # But now there should be one checked out book
     expect(lib.borrowed_books.count).to eq(1)
-    expect(lib.borrowed_books.first).to be_a?(Book)
+    expect(lib.borrowed_books.first).to be_a(Book)
   end
 end
