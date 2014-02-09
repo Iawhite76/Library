@@ -26,7 +26,7 @@ end
 
 class Borrower
   attr_reader :name
-  attr_accessor :borrowed_count #, :borrowed_books
+  attr_accessor :borrowed_count, :borrowed_books
   def initialize(name)
     @name = name
     @borrowed_count = 0
@@ -40,7 +40,6 @@ class Library
   def initialize(name="FAC")
     @books = []
     @id_counter = 100
-    # @library = {}
   end
 
   def register_new_book(title, author)
@@ -53,29 +52,17 @@ class Library
   # def add_book(title, author)
   # end
 
-  # def check_out_book(book_id, borrower)
-  #   book = @books.find { |book| book.id == book_id }
-  #   if book.status == "checked_out"
-  #     return nil
-  #   else
-  #     book = @books.find { |book| book.id == book_id }
-  #     book.status = "checked_out"
-  #     @library[book.id] = borrower.anme
-  #     book
-  #   end
-  # end
-
   def check_out_book(book_id, borrower)
-    @books.find do |x|
-      if (x.id == book_id) && (x.status == "available") && (borrower.borrowed_count < 2)
+    @books.each do |x|
+      if (x.id == book_id) && (x.status == "available")
         x.check_out
         x.borrower = borrower
-        borrower.borrowed_count += 1
-        x
+        return x
       else
-        nil
+        return nil
       end
     end
+
   end
 
   def get_borrower(book_id)

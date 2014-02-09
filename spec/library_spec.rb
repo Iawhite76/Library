@@ -98,7 +98,7 @@ describe Library do
     lib = Library.new("FAC")
     lib.register_new_book("The Brothers Karamazov", "Fyodor Dostoesvky")
     book_id = lib.books.first.id
-   
+
     # Big Brother wants to check out The Brothers Karamazov
     bro = Borrower.new('Big Brother')
     book = lib.check_out_book(book_id, bro)
@@ -122,10 +122,10 @@ describe Library do
     book_again = lib.check_out_book(book_id, nielsen)
 
     expect(book_again).to be_nil
-    
+
   end
 
-  xit "allows a Borrower to check a book back in" do
+  it "allows a Borrower to check a book back in" do
     lib = Library.new
     lib.register_new_book("Finnegans Wake", "James Joyce")
     book_id = lib.books.first.id
@@ -141,7 +141,7 @@ describe Library do
     expect(book.status).to eq 'available'
   end
 
-  xit "does not allow a Borrower to check out more than two Books at any given time" do
+  it "does not allow a Borrower to check out more than two Books at any given time" do
     lib = Library.new
     lib.register_new_book("Eloquent JavaScript", "Marijn Haverbeke")
     lib.register_new_book("Essential JavaScript Design Patterns", "Addy Osmani")
@@ -155,32 +155,36 @@ describe Library do
     # The first two books should check out fine
     book = lib.check_out_book(book_1.id, jackson)
     expect(book.title).to eq "Eloquent JavaScript"
-
+ # binding.pry
     book = lib.check_out_book(book_2.id, jackson)
     expect(book.title).to eq "Essential JavaScript Design Patterns"
+
 
     # However, the third should return nil
     book = lib.check_out_book(book_3.id, jackson)
     expect(book).to be_nil
+    # binding pry
   end
 
-  xit "returns available books" do
+  it "returns available books" do
     lib = Library.new
     lib.register_new_book("Eloquent JavaScript", "Marijn Haverbeke")
     lib.register_new_book("Essential JavaScript Design Patterns", "Addy Osmani")
     lib.register_new_book("JavaScript: The Good Parts", "Douglas Crockford")
-
     # At first, all books are available
+
     expect(lib.available_books.count).to eq(3)
-    expect(lib.available_books.first).to be_a?(Book)
+
+    expect(lib.available_books.first).to be_a(Book)
 
     jordan = Borrower.new("Michael jordan")
     book = lib.check_out_book(lib.available_books.first.id, jordan)
 
     # But now, there should only be two available books
     expect(lib.available_books.count).to eq(2)
-  end
 
+  end
+# binding pry
   xit "returns borrowed books" do
     lib = Library.new
     lib.register_new_book("Eloquent JavaScript", "Marijn Haverbeke")
